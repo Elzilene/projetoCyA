@@ -1,0 +1,19 @@
+{
+  "name": "projetocya",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^12.17.4",
+    "eslint": "^8.48.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-cypress": "^2.14.0"
+  }
+}
