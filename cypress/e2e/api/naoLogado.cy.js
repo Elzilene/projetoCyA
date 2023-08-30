@@ -1,12 +1,12 @@
-const { Context, it } = require("mocha")
-
 describe('API - Profile', () => {
+    let urlPerfis = '/api/profile'
+    //DRY - Don't Repeat  Yourself
     context('todos os perfis', () => {
         it('Valida', () => {
             cy.log('Teste de texto')
             cy.request({
                 method: 'GET',
-                url:'/api/profile'
+                url:'urlPerfis'
             }).then(({status, duration, body, headers}) =>{
                 expect(status).to.eq(200)
                 expect(duration).to.be.lessThan(10000)
@@ -22,10 +22,11 @@ describe('API - Profile', () => {
         
     })
     context('perfil específico', () => {
+        let urlPerfil = '/api/profile/user/'
         it('selecionar usuário invalido', () => {
             cy.request({
                 method:'GET',
-                url:'/api/profile/user/1',
+                url:`${urlPerfil}/1`,
                 failOnSatusCode:false
             }).then(({status, body}) =>{
                 expect(status).to.eq(404)
@@ -37,7 +38,7 @@ describe('API - Profile', () => {
             let usuarioId ='637d72b11fb5cb0015a02258'
             cy.request({
                 method:'GET',
-                url:`/api/profile/user/${usuarioIS}`
+                url:`${urlPerfil}/${usuarioId}`
             }).then(({status, body})=>{
                 expect(status).to.eq(200)
                 expect(body,user.name).to.eq('Lene Soares')
@@ -45,15 +46,15 @@ describe('API - Profile', () => {
             
         })
         it('Valida um usuário válido buscando na base', () => {
-            let usuarioId = ''
+
             cy.request({
                 method:'GET',
-                url:'/api/profile/'
+                url:urlPerfis
             }).then(({body}) =>{
-                usuarioId = body[1].user._id
+               
                 cy.request({
                     method:'GET',
-                    url:`/api/profile/user/${body[1].user_id}`
+                    url:`${urlPerfil}/${body[1].user_id}`
                 }).then(({status,body})=>{
                     expect(status).to.eq(200)
                     expect(body.status).to.eq('outro')
