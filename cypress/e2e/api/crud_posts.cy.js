@@ -5,19 +5,8 @@ describe('CRUD - Posts', () => {
     urlGET = `/api/post/${postid}`
     
     before(() => {
-        cy.request({
-            method:'POST',
-            url:'/api/auth',
-            body:{
-                email:Cypress.env('email'),
-                password:Cypress.env('password')
-            }    
-        }).then(()=>{
-            cypress.Cookies.defaults({
-                preserve: 'jwt'
+        cy.login(Cypress.env('email'),Cypress.env('password'))
 
-            })
-        })
         
     })
     it('cria um post', () => {
